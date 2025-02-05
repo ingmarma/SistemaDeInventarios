@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Producto Lista Component</title>
+</head>
+<body>
+    <div id="test-container"></div>
+
+    <script>
+        // Mock data for testing
+        const mockProductos = [
+            { idProducto: 1, descripcion: 'Producto 1', precio: 100, existencia: 10 },
+            { idProducto: 2, descripcion: 'Producto 2', precio: 200, existencia: 20 }
+        ];
+
+        // Function to render the component
+        function renderComponent(productos) {
+            const container = document.getElementById('test-container');
+            container.innerHTML = `
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Descripcion del Producto</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Existencia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${productos.map(producto => `
+                            <tr>
+                                <th scope="row">${producto.idProducto}</th>
+                                <td>${producto.descripcion}</td>
+                                <td>${producto.precio}</td>
+                                <td>${producto.existencia}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // Render the component with mock data
+        renderComponent(mockProductos);
+
+        // Test cases
+        function runTests() {
+            const precios = document.querySelectorAll('td:nth-child(3)');
+            const expectedPrecios = [100, 200];
+
+            precios.forEach((precio, index) => {
+                if (parseInt(precio.textContent) !== expectedPrecios[index]) {
+                    console.error(`Test failed: Expected ${expectedPrecios[index]}, but got ${precio.textContent}`);
+                } else {
+                    console.log(`Test passed: ${precio.textContent}`);
+                }
+            });
+        }
+
+        // Run the tests
+        runTests();
+    </script>
+</body>
+</html>
